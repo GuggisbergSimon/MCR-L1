@@ -1,13 +1,12 @@
 import java.awt.*;
 
 public class AnalogWatch extends Watch {
-    private static final int sizeX = 200;
-    private static final int sizeY = 200;
     private static final String arabianFileName = "cadran_chiffres_arabes.jpg";
     private static final String romanFileName = "cadran_chiffres_romains.jpg";
     private Image image;
 
-    public AnalogWatch(WindowType type) {
+    public AnalogWatch(int id, WindowType type, int size) {
+        super(id);
         String imageName = "";
         switch (type) {
             case Arabian -> imageName = arabianFileName;
@@ -16,10 +15,10 @@ public class AnalogWatch extends Watch {
 
         // Loads image and scale it
         image = Toolkit.getDefaultToolkit().getImage(imageName);
-        image = image.getScaledInstance(sizeX, sizeY, Image.SCALE_SMOOTH);
+        image = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
     }
 
-    public void paintComponent (Graphics g) {
+    public void paintComponent(Graphics g) {
         g.drawImage(image, 0, 0, null);
     }
 
