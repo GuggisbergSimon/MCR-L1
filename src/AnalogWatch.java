@@ -3,6 +3,7 @@ import java.awt.*;
 public class AnalogWatch extends Watch {
     private static final String arabianFileName = "cadran_chiffres_arabes.jpg";
     private static final String romanFileName = "cadran_chiffres_romains.jpg";
+    private static final int size = 200;
     private Image image;
 
     public AnalogWatch(int id, WindowType type, int size) {
@@ -19,7 +20,10 @@ public class AnalogWatch extends Watch {
     }
 
     public void paintComponent(Graphics g) {
-        g.drawImage(image, 0, 0, null);
+        super.paintComponent(g);
+        int x = (getWidth() - size) / 2;
+        int y = (getHeight() - size) / 2;
+        g.drawImage(image, x, y, size, size, this);
     }
 
     @Override
