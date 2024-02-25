@@ -26,6 +26,7 @@ public abstract class Watch extends Observer {
         button.setOpaque(false);
         add(button);
 
+        // TODO fix button unclickable through label (and if label is printed before, then it doesn't appear)
         // chrono label
         label = new JLabel();
         label.setHorizontalAlignment(SwingConstants.CENTER);

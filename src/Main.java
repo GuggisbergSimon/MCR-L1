@@ -4,6 +4,7 @@ public class Main {
         int nbChrono = 3;
         ChronoManager chronoManager = new ChronoManager(nbChrono);
 
+        //TODO delete once useless
         // Debug purposes
         WatchManager watchManagerSingle = new WatchManager(WindowType.Digital, 2);
     }

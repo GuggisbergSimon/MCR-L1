@@ -29,9 +29,9 @@ public class AnalogWatch extends Watch {
         g.drawImage(image, x, y, size, size, this);
 
         Graphics2D g2d = (Graphics2D) g;
-        drawPointer(g2d, hours, 12,size / 4, 4);
-        drawPointer(g2d, minutes, 60, size / 4 + size / 8, 2);
-        drawPointer(g2d, seconds, 60, size / 2, 1);
+        drawPointer(g2d, hours, 12,size / 4, 3, Color.black);
+        drawPointer(g2d, minutes, 60, size / 4 + size / 16, 2, Color.blue);
+        drawPointer(g2d, seconds, 60, size / 2, 1, Color.red);
     }
 
     @Override
@@ -44,13 +44,14 @@ public class AnalogWatch extends Watch {
         repaint();
     }
 
-    private void drawPointer(Graphics2D g2d, int numberPointed, int maxUnit, int lengthPointer, int boldness) {
+    private void drawPointer(Graphics2D g2d, int numberPointed, int maxUnit, int lengthPointer, int boldness, Color c) {
         double angle = Math.toRadians((numberPointed % maxUnit) * ((double) 360 / maxUnit) - 90);
         int xCenter = getWidth() / 2;
         int yCenter = getHeight() / 2;
         int xEnd = xCenter + (int) (lengthPointer * Math.cos(angle));
         int yEnd = yCenter + (int) (lengthPointer * Math.sin(angle));
         g2d.setStroke(new BasicStroke(boldness));
+        g2d.setColor(c);
         g2d.drawLine(xCenter, yCenter, xEnd, yEnd);
     }
 }
