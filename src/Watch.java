@@ -12,13 +12,6 @@ public abstract class Watch extends Observer {
         super();
         this.id = id;
 
-        // chrono label
-        label = new JLabel();
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        setLayout(new BorderLayout());
-        add(label, BorderLayout.CENTER);
-        update();
-
         // toggle button
         JButton button = new JButton();
         button.addActionListener(new ActionListener() {
@@ -32,6 +25,13 @@ public abstract class Watch extends Observer {
         button.setBorderPainted(false);
         button.setOpaque(false);
         add(button);
+
+        // chrono label
+        label = new JLabel();
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        setLayout(new BorderLayout());
+        add(label, BorderLayout.CENTER);
+        update();
     }
 
     @Override

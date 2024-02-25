@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ChronoManager extends JFrame {
     private static final String[] buttonsLines = {"démarrer", "arrêter", "réinitialiser", "cadran romain", "cadran arabe", "numérique"};
@@ -8,6 +10,7 @@ public class ChronoManager extends JFrame {
     public ChronoManager(int nbChrono) {
         super("Panneau de contrôle");
         setLayout(new GridLayout(nbChrono + 1, 1));
+
         for (int i = 0; i < nbChrono; i++) {
             JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
             // label
@@ -17,6 +20,12 @@ public class ChronoManager extends JFrame {
             // buttons
             for (int j = 0; j < buttonsLines.length; j++) {
                 JButton button = new JButton(buttonsLines[j]);
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //TODO call dedicated method
+                    }
+                });
                 panel.add(button);
             }
             add(panel);
@@ -30,8 +39,15 @@ public class ChronoManager extends JFrame {
         panel.add(label);
 
         // buttons
-        for (int j = 0; j < buttonsWatches.length; j++) {
-            JButton button = new JButton(buttonsWatches[j]);
+        for (int i = 0; i < buttonsWatches.length; i++) {
+            JButton button = new JButton(buttonsWatches[i]);
+            final int index = i;
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFrame frame = new WatchManager(nbChrono, WindowType.values()[index]);
+                }
+            });
             panel.add(button);
         }
         add(panel);
@@ -39,5 +55,21 @@ public class ChronoManager extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
+    }
+
+    private void start(int id) {
+        System.out.println("Start " + id);
+    }
+
+    private void stop(int id) {
+        System.out.println("Stop " + id);
+    }
+
+    private void reset(int id) {
+        System.out.println("Reset " + id);
+    }
+
+    private void newWatch(int id, WindowType type) {
+        JFrame frame = new WatchManager(type, id);
     }
 }

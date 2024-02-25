@@ -5,7 +5,6 @@ public class Main {
         ChronoManager chronoManager = new ChronoManager(nbChrono);
 
         // Debug purposes
-        WatchManager watchManagerAll = new WatchManager(nbChrono, WindowType.Arabian);
-        WatchManager watchManagerAlone = new WatchManager(WindowType.Digital, 2);
+        WatchManager watchManagerSingle = new WatchManager(WindowType.Digital, 2);
     }
 }
