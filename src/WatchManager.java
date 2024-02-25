@@ -25,9 +25,9 @@ public class WatchManager extends JFrame {
             @Override
             public void componentResized(ComponentEvent e) {
                 int width = getWidth();
-                int maxColumns = width / size;
-                // TODO improve resize
-                setLayout(new GridLayout(0, Math.max(maxColumns, 1)));
+                int maxColumns = width < panels.size() * size ?
+                        Math.max(width / size, 1) : panels.size();
+                setLayout(new GridLayout(0, maxColumns));
             }
         });
     }
