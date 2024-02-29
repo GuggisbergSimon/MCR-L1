@@ -2,17 +2,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ChronoManager extends JFrame {
+    ArrayList<Chrono> chronos;
     private static final String[] buttonsLines = {"démarrer", "arrêter", "réinitialiser", "cadran romain", "cadran arabe", "numérique"};
     private static final String[] buttonsWatches = {"cadran romain", "cadran arabe", "numérique"};
 
     public ChronoManager(int nbChrono) {
         super("Panneau de contrôle");
         setLayout(new GridLayout(nbChrono + 1, 1));
-
+        chronos = new ArrayList<>(nbChrono);
         for (int i = 0; i < nbChrono; i++) {
             JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+
+            chronos.add(new Chrono());
             // label
             JLabel label = new JLabel("Chrono #" + i);
             panel.add(label);
@@ -58,14 +62,17 @@ public class ChronoManager extends JFrame {
     }
 
     private void start(int id) {
+        chronos.get(id).start();
         System.out.println("Start " + id);
     }
 
     private void stop(int id) {
+        chronos.get(id).stop();
         System.out.println("Stop " + id);
     }
 
     private void reset(int id) {
+        chronos.get(id).start();
         System.out.println("Reset " + id);
     }
 
