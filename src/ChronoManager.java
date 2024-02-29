@@ -41,12 +41,12 @@ public class ChronoManager extends JFrame {
             // buttons
             for (int j = 0; j < buttons.length; j++) {
                 JButton button = new JButton(buttons[j].text);
-                final int index = j;
+                final int indexI = i;
+                final int indexJ = j;
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //TODO call dedicated method
-                        buttons[index].action.run(index);
+                        buttons[indexJ].action.run(indexI);
                     }
                 });
                 panel.add(button);
@@ -71,7 +71,7 @@ public class ChronoManager extends JFrame {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JFrame frame = new WatchManager(nbChrono, WindowType.values()[index], 0 /*TODO put chronos.get(id).getTime()*/);
+                    JFrame frame = new WatchManager(nbChrono, WindowType.values()[index], chronos.get(index).getTimeElapsed());
                 }
             });
             panel.add(button);
@@ -111,6 +111,6 @@ public class ChronoManager extends JFrame {
     }
 
     private void newWatch(int id, WindowType type) {
-        JFrame frame = new WatchManager(type, id, 0 /*TODO put chronos.get(id).getTime()*/);
+        JFrame frame = new WatchManager(type, id, chronos.get(id).getTimeElapsed());
     }
 }
