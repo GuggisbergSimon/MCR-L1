@@ -7,16 +7,19 @@ public class Chrono extends Subject {
 
     Timer timer;
     boolean isRunning;
-
+    int timeElapsed;
     ArrayList<Observer> observers;
 
     public Chrono() {
 
         isRunning = false;
+        timeElapsed = 0;
         observers = new ArrayList<>();
+
         timer = new Timer(1, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ++timeElapsed;
                 notifyObserver();
             }
         });
@@ -25,7 +28,7 @@ public class Chrono extends Subject {
     @Override
     public void notifyObserver() {
         for(Observer observer : observers) {
-            observer.notify();
+            observer.update(timeElapsed);
         }
     }
 
@@ -55,6 +58,13 @@ public class Chrono extends Subject {
         isRunning = true;
     }
     public void reset() {
-        timer.restart();
+        timer.stop();
+        isRunning = false;
+        timeElapsed = 0;
+        notifyObserver();
+    }
+
+    public int getTimeElapsed() {
+        return timeElapsed;
     }
 }
