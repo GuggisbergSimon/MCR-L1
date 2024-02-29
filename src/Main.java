@@ -1,11 +1,14 @@
 public class Main {
     public static void main(String[] args) {
-        //TODO retrieve argument and convert to int for initializing chronoManager
         int nbChrono = 3;
-        ChronoManager chronoManager = new ChronoManager(nbChrono);
+        if (args.length > 0) {
+            try {
+                nbChrono = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+            }
+        }
 
-        //TODO delete once useless
-        // Debug purposes
-        WatchManager watchManagerSingle = new WatchManager(WindowType.Digital, 2, 7316);
+        ChronoManager chronoManager = new ChronoManager(nbChrono);
     }
 }
