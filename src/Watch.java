@@ -43,7 +43,7 @@ public abstract class Watch extends Observer {
         hours = timeSeconds / 3600;
         timeSeconds -= hours * 3600;
         minutes = timeSeconds / 60;
-        timeSeconds -= hours * 60;
+        timeSeconds -= minutes * 60;
         seconds = timeSeconds;
     }
 
