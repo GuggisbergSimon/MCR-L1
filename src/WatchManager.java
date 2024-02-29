@@ -32,26 +32,26 @@ public class WatchManager extends JFrame {
         });
     }
 
-    private void addPanel(WindowType type, int id) {
+    private void addPanel(WindowType type, int id, int timeSeconds) {
         switch (type) {
             case Roman, Arabian ->
-                    panels.add(new AnalogWatch(id, type, size));
-            case Digital -> panels.add(new DigitalWatch(id));
+                    panels.add(new AnalogWatch(id, timeSeconds, type, size));
+            case Digital -> panels.add(new DigitalWatch(id, timeSeconds));
         }
     }
 
-    public WatchManager(int nbWatches, WindowType type) {
+    public WatchManager(int nbWatches, WindowType type, int timeSeconds) {
         super();
         for (int i = 1; i <= nbWatches; i++) {
-            addPanel(type, i);
+            addPanel(type, i, timeSeconds);
         }
 
         setup();
     }
 
-    public WatchManager(WindowType type, int id) {
+    public WatchManager(WindowType type, int id, int timeSeconds) {
         super();
-        addPanel(type, id);
+        addPanel(type, id, timeSeconds);
         setup();
     }
 }

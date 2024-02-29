@@ -6,8 +6,25 @@ import java.util.ArrayList;
 
 public class ChronoManager extends JFrame {
     ArrayList<Chrono> chronos;
-    private static final String[] buttonsLines = {"démarrer", "arrêter", "réinitialiser", "cadran romain", "cadran arabe", "numérique"};
-    private static final String[] buttonsWatches = {"cadran romain", "cadran arabe", "numérique"};
+    private record Button(
+            String text,
+            FunctionID action,
+            boolean isControl) {
+    }
+
+    @FunctionalInterface
+    private interface FunctionID {
+        void run(int id);
+    }
+
+    private final Button[] buttons = {
+            new Button("démarrer", this::start, true),
+            new Button("arrêter", this::stop, true),
+            new Button("réinitialiser", this::reset, true),
+            new Button("cadran romain", this::newWatchRoman, false),
+            new Button("cadran arabe", this::newWatchArabian, false),
+            new Button("cadran numérique", this::newWatchDigital, false),
+    };
 
     public ChronoManager(int nbChrono) {
         super("Panneau de contrôle");
@@ -22,12 +39,14 @@ public class ChronoManager extends JFrame {
             panel.add(label);
 
             // buttons
-            for (int j = 0; j < buttonsLines.length; j++) {
-                JButton button = new JButton(buttonsLines[j]);
+            for (int j = 0; j < buttons.length; j++) {
+                JButton button = new JButton(buttons[j].text);
+                final int index = j;
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         //TODO call dedicated method
+                        buttons[index].action.run(index);
                     }
                 });
                 panel.add(button);
@@ -43,13 +62,16 @@ public class ChronoManager extends JFrame {
         panel.add(label);
 
         // buttons
-        for (int i = 0; i < buttonsWatches.length; i++) {
-            JButton button = new JButton(buttonsWatches[i]);
-            final int index = i;
+        for (int i = 0, j = 0; i < buttons.length; i++) {
+            if (buttons[i].isControl) {
+                continue;
+            }
+            JButton button = new JButton(buttons[i].text);
+            final int index = j++;
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JFrame frame = new WatchManager(nbChrono, WindowType.values()[index]);
+                    JFrame frame = new WatchManager(nbChrono, WindowType.values()[index], 0 /*TODO put chronos.get(id).getTime()*/);
                 }
             });
             panel.add(button);
@@ -76,7 +98,19 @@ public class ChronoManager extends JFrame {
         System.out.println("Reset " + id);
     }
 
+    private void newWatchRoman(int id) {
+        newWatch(id, WindowType.Roman);
+    }
+
+    private void newWatchArabian(int id) {
+        newWatch(id, WindowType.Arabian);
+    }
+
+    private void newWatchDigital(int id) {
+        newWatch(id, WindowType.Digital);
+    }
+
     private void newWatch(int id, WindowType type) {
-        JFrame frame = new WatchManager(type, id);
+        JFrame frame = new WatchManager(type, id, 0 /*TODO put chronos.get(id).getTime()*/);
     }
 }

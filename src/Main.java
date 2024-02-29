@@ -6,6 +6,6 @@ public class Main {
 
         //TODO delete once useless
         // Debug purposes
-        WatchManager watchManagerSingle = new WatchManager(WindowType.Digital, 2);
+        WatchManager watchManagerSingle = new WatchManager(WindowType.Digital, 2, 7316);
     }
 }

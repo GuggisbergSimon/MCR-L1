@@ -5,12 +5,9 @@ public class AnalogWatch extends Watch {
     private static final String romanFileName = "cadran_chiffres_romains.jpg";
     private static final int size = 200;
     private Image image;
-    private int hours;
-    private int minutes;
-    private int seconds;
 
-    public AnalogWatch(int id, WindowType type, int size) {
-        super(id);
+    public AnalogWatch(int id, int timeSeconds, WindowType type, int size) {
+        super(id, timeSeconds);
         String imageName = "";
         switch (type) {
             case Arabian -> imageName = arabianFileName;
@@ -35,11 +32,8 @@ public class AnalogWatch extends Watch {
     }
 
     @Override
-    public void update() {
-        //TODO send proper values
-        hours = 3;
-        minutes = 55;
-        seconds = 25;
+    public void update(int timeSeconds) {
+        super.update(timeSeconds);
         label.setText(this.toString());
         repaint();
     }
