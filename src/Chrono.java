@@ -40,7 +40,6 @@ public class Chrono extends Subject {
 
     @Override
     public void removeObserver(Observer observer) {
-        System.out.println("removed " + observer.toString());
         observers.remove(observer);
     }
 

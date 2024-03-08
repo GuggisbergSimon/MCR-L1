@@ -1,17 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public abstract class Watch extends Observer {
-    private class ToggleListener extends MouseAdapter {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            //TODO send toggle at ChronoManager
-
-            System.out.println(id + " touched");
-        }
-    }
 
     protected int id;
     protected int hours;
@@ -23,9 +13,6 @@ public abstract class Watch extends Observer {
     public Watch(int id, int timeSeconds) {
         super();
         this.id = id;
-
-        // toggle button
-        this.addMouseListener(new ToggleListener());
 
         // chrono label
         label = new JLabel();

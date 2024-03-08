@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -35,7 +37,7 @@ public class WatchManager extends JFrame {
         });
     }
 
-    private void addPanel(WatchType type, Chrono chrono) {
+    private void addPanel(WatchType type, final Chrono chrono) {
         int id = chrono.getId();
         int timeSeconds = chrono.getTimeElapsed();
         Watch watch;
@@ -48,6 +50,14 @@ public class WatchManager extends JFrame {
 
         watches.add(watch);
         chrono.addObserver(watch);
+
+        // toggle button
+        watch.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                chrono.toggle();
+            }
+        });
     }
 
     /**
