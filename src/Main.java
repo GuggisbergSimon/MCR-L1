@@ -1,3 +1,10 @@
+/**
+ * @author Simon Guggisberg
+ * @author Patrick TODO add name
+ * @version 1.0
+ * @since 2024-02-22
+ */
+
 public class Main {
     public static void main(String[] args) {
         //Default value is 3

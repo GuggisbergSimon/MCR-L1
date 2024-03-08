@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Chrono extends Subject {
-
     int id;
     Timer timer;
     boolean isRunning;
@@ -20,18 +19,17 @@ public class Chrono extends Subject {
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //System.out.println("Time is running");
                 ++timeElapsed;
                 notifyObserver();
             }
         });
 
     }
+
     @Override
     public void notifyObserver() {
-        for(Observer observer : observers) {
+        for (Observer observer : observers) {
             observer.update(timeElapsed);
-            System.out.println("Some got notifed !");
         }
     }
 
@@ -42,24 +40,28 @@ public class Chrono extends Subject {
 
     @Override
     public void removeObserver(Observer observer) {
+        System.out.println("removed " + observer.toString());
         observers.remove(observer);
     }
 
     public void toggle() {
-        if(isRunning) {
+        if (isRunning) {
             stop();
-        } else  {
+        } else {
             start();
         }
     }
+
     public void stop() {
         timer.stop();
         isRunning = false;
     }
+
     public void start() {
         timer.start();
         isRunning = true;
     }
+
     public void reset() {
         timer.stop();
         isRunning = false;

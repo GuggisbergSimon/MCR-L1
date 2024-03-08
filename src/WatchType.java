@@ -1,4 +1,4 @@
-public enum WindowType {
+public enum WatchType {
     Roman,
     Arabian,
     Digital

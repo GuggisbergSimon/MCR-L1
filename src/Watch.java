@@ -8,6 +8,7 @@ public abstract class Watch extends Observer {
         @Override
         public void mouseClicked(MouseEvent e) {
             //TODO send toggle at ChronoManager
+
             System.out.println(id + " touched");
         }
     }
@@ -46,5 +47,9 @@ public abstract class Watch extends Observer {
     @Override
     public String toString() {
         return String.format("Chrono #%d", id);
+    }
+
+    public int getId() {
+        return id;
     }
 }

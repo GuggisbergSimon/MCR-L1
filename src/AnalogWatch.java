@@ -6,7 +6,7 @@ public class AnalogWatch extends Watch {
     private static final int size = 200;
     private Image image;
 
-    public AnalogWatch(int id, int timeSeconds, WindowType type, int size) {
+    public AnalogWatch(int id, int timeSeconds, WatchType type, int size) {
         super(id, timeSeconds);
         String imageName = "";
         switch (type) {
@@ -26,7 +26,7 @@ public class AnalogWatch extends Watch {
         g.drawImage(image, x, y, size, size, this);
 
         Graphics2D g2d = (Graphics2D) g;
-        drawPointer(g2d, hours, 12,size / 4, 3, Color.black);
+        drawPointer(g2d, hours, 12, size / 4, 3, Color.black);
         drawPointer(g2d, minutes, 60, size / 4 + size / 16, 2, Color.blue);
         drawPointer(g2d, seconds, 60, size / 2, 1, Color.red);
     }
@@ -35,7 +35,6 @@ public class AnalogWatch extends Watch {
     public void update(int timeSeconds) {
         super.update(timeSeconds);
         label.setText(this.toString());
-        System.out.println(timeSeconds);
         repaint();
     }
 

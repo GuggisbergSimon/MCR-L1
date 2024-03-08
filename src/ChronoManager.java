@@ -2,10 +2,39 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 public class ChronoManager extends JFrame {
+    private abstract static class ClosingWindowListener implements WindowListener {
+        @Override
+        public void windowOpened (WindowEvent e){
+        }
+
+        @Override
+        public void windowClosed (WindowEvent e){
+        }
+
+        @Override
+        public void windowIconified (WindowEvent e){
+        }
+
+        @Override
+        public void windowDeiconified (WindowEvent e){
+        }
+
+        @Override
+        public void windowActivated (WindowEvent e){
+        }
+
+        @Override
+        public void windowDeactivated (WindowEvent e){
+        }
+    }
+
     ArrayList<Chrono> chronos;
+
     private record Button(
             String text,
             FunctionID action,
@@ -29,7 +58,7 @@ public class ChronoManager extends JFrame {
     public ChronoManager(int nbChrono) {
         super("Panneau de contrôle");
         setLayout(new GridLayout(nbChrono + 1, 1));
-        chronos = new ArrayList<>(nbChrono);
+        chronos = new ArrayList<Chrono>(nbChrono);
         for (int i = 0; i < nbChrono; i++) {
             JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
@@ -54,7 +83,7 @@ public class ChronoManager extends JFrame {
             add(panel);
         }
 
-        // all Chrono buttons
+        // all Chronos buttons
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
         // label
@@ -66,12 +95,27 @@ public class ChronoManager extends JFrame {
             if (buttons[i].isControl) {
                 continue;
             }
+
             JButton button = new JButton(buttons[i].text);
             final int index = j++;
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    JFrame frame = new WatchManager(nbChrono, WindowType.values()[index], chronos.get(index).getTimeElapsed());
+                    final WatchManager watchManager = new WatchManager(WatchType.values()[index], chronos);
+
+                    watchManager.addWindowListener(new ClosingWindowListener() {
+                        @Override
+                        public void windowClosing(WindowEvent e) {
+                            for (Chrono chrono : ChronoManager.this.chronos) {
+                                int id = chrono.getId();
+                                for (Watch watch : watchManager.watches) {
+                                    if (watch.getId() == id) {
+                                        chrono.removeObserver(watch);
+                                    }
+                                }
+                            }
+                        }
+                    });
                 }
             });
             panel.add(button);
@@ -85,32 +129,47 @@ public class ChronoManager extends JFrame {
 
     private void start(int id) {
         chronos.get(id).start();
-        System.out.println("Start " + id);
     }
 
     private void stop(int id) {
         chronos.get(id).stop();
-        System.out.println("Stop " + id);
     }
 
     private void reset(int id) {
         chronos.get(id).start();
-        System.out.println("Reset " + id);
     }
 
     private void newWatchRoman(int id) {
-        newWatch(id, WindowType.Roman);
+        newWatch(id, WatchType.Roman);
     }
 
     private void newWatchArabian(int id) {
-        newWatch(id, WindowType.Arabian);
+        newWatch(id, WatchType.Arabian);
     }
 
     private void newWatchDigital(int id) {
-        newWatch(id, WindowType.Digital);
+        newWatch(id, WatchType.Digital);
     }
 
-    private void newWatch(int id, WindowType type) {
-        JFrame frame = new WatchManager(type, chronos.get(id));
+    private void newWatch(int id, WatchType type) {
+        final WatchManager watchManager = new WatchManager(type, chronos.get(id));
+
+        watchManager.addWindowListener(new ClosingWindowListener() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for (Chrono chrono : ChronoManager.this.chronos) {
+                    int id = chrono.getId();
+                    for (Watch watch : watchManager.watches) {
+                        if (watch.getId() == id) {
+                            chrono.removeObserver(watch);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    public ArrayList<Chrono> getChronos() {
+        return chronos;
     }
 }
