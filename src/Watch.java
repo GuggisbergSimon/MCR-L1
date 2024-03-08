@@ -1,9 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public abstract class Watch extends Observer {
+    private class ToggleListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            //TODO send toggle at ChronoManager
+            System.out.println(id + " touched");
+        }
+    }
+
     protected int id;
     protected int hours;
     protected int minutes;
@@ -16,20 +24,8 @@ public abstract class Watch extends Observer {
         this.id = id;
 
         // toggle button
-        JButton button = new JButton();
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //TODO send toggle at ChronoManager
-                System.out.println(id + " touched");
-            }
-        });
-        button.setContentAreaFilled(false);
-        button.setBorderPainted(false);
-        button.setOpaque(false);
-        add(button);
+        this.addMouseListener(new ToggleListener());
 
-        // TODO fix button unclickable through label (and if label is printed before, then it doesn't appear)
         // chrono label
         label = new JLabel();
         label.setHorizontalAlignment(SwingConstants.CENTER);
@@ -45,7 +41,6 @@ public abstract class Watch extends Observer {
         minutes = timeSeconds / 60;
         timeSeconds -= minutes * 60;
         seconds = timeSeconds;
-
     }
 
     @Override
