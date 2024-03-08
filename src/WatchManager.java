@@ -7,7 +7,7 @@ import java.util.LinkedList;
 public class WatchManager extends JFrame {
     private static final int size = 200;
     LinkedList<JPanel> panels = new LinkedList<>();
-
+    Chrono chrono;
     private void setup() {
         // Sets size of the panels and add them to the frame
         for (JPanel panel : panels) {
@@ -49,9 +49,10 @@ public class WatchManager extends JFrame {
         setup();
     }
 
-    public WatchManager(WindowType type, int id, int timeSeconds) {
+    public WatchManager(WindowType type, Chrono chrono) {
         super();
-        addPanel(type, id, timeSeconds);
+        this.chrono = chrono;
+        addPanel(type, chrono.getId(), chrono.getTimeElapsed());
         setup();
     }
 }

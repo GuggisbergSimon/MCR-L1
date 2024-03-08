@@ -35,6 +35,7 @@ public class AnalogWatch extends Watch {
     public void update(int timeSeconds) {
         super.update(timeSeconds);
         label.setText(this.toString());
+        System.out.println(timeSeconds);
         repaint();
     }
 

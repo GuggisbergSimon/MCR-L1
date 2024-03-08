@@ -9,5 +9,6 @@ public class DigitalWatch extends Watch {
     public void update(int timeSeconds) {
         super.update(timeSeconds);
         label.setText(this + String.format(format, hours, minutes, seconds));
+        repaint();
     }
 }

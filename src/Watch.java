@@ -45,6 +45,7 @@ public abstract class Watch extends Observer {
         minutes = timeSeconds / 60;
         timeSeconds -= minutes * 60;
         seconds = timeSeconds;
+
     }
 
     @Override

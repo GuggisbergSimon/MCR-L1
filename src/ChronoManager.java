@@ -33,7 +33,7 @@ public class ChronoManager extends JFrame {
         for (int i = 0; i < nbChrono; i++) {
             JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-            chronos.add(new Chrono());
+            chronos.add(new Chrono(i));
             // label
             JLabel label = new JLabel("Chrono #" + i);
             panel.add(label);
@@ -111,6 +111,6 @@ public class ChronoManager extends JFrame {
     }
 
     private void newWatch(int id, WindowType type) {
-        JFrame frame = new WatchManager(type, id, chronos.get(id).getTimeElapsed());
+        JFrame frame = new WatchManager(type, chronos.get(id));
     }
 }

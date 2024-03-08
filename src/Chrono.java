@@ -5,20 +5,22 @@ import java.util.ArrayList;
 
 public class Chrono extends Subject {
 
+    int id;
     Timer timer;
     boolean isRunning;
     int timeElapsed;
     ArrayList<Observer> observers;
 
-    public Chrono() {
-
+    public Chrono(int id) {
+        this.id = id;
         isRunning = false;
         timeElapsed = 0;
         observers = new ArrayList<>();
 
-        timer = new Timer(1, new ActionListener() {
+        timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //System.out.println("Time is running");
                 ++timeElapsed;
                 notifyObserver();
             }
@@ -29,6 +31,7 @@ public class Chrono extends Subject {
     public void notifyObserver() {
         for(Observer observer : observers) {
             observer.update(timeElapsed);
+            System.out.println("Some got notifed !");
         }
     }
 
@@ -66,5 +69,9 @@ public class Chrono extends Subject {
 
     public int getTimeElapsed() {
         return timeElapsed;
+    }
+
+    public int getId() {
+        return id;
     }
 }
