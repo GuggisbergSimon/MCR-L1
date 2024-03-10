@@ -33,7 +33,7 @@ public class ChronoManager extends JFrame {
         }
     }
 
-    ArrayList<Chrono> chronos;
+    private final ArrayList<Chrono> chronos;
 
     private record Button(
             String text,
