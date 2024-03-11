@@ -58,7 +58,7 @@ public class ChronoManager extends JFrame {
     /**
      * ChronoManager constructor
      *
-     * @param nbChrono
+     * @param nbChrono the number of chronos
      */
     public ChronoManager(int nbChrono) {
         super("Panneau de contrôle");
