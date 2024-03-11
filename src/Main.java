@@ -1,6 +1,6 @@
 /**
  * @author Simon Guggisberg
- * @author Patrick TODO add name
+ * @author Patrick Furrer
  * @version 1.0
  * @since 2024-02-22
  */

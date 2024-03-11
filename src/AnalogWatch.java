@@ -3,9 +3,17 @@ import java.awt.*;
 public class AnalogWatch extends Watch {
     private static final String arabianFileName = "cadran_chiffres_arabes.jpg";
     private static final String romanFileName = "cadran_chiffres_romains.jpg";
-    private static final int size = 200;
+    private final int size;
     private Image image;
 
+    /**
+     * AnalogWatch constructor
+     *
+     * @param id          the id of the Watch
+     * @param timeSeconds the number of seconds to be initialized with
+     * @param type        the type of the Watch
+     * @param size        the size of the Watch (a watch is assumed to be a circle so length and height are the same)
+     */
     public AnalogWatch(int id, int timeSeconds, WatchType type, int size) {
         super(id, timeSeconds);
         String imageName = "";
@@ -15,6 +23,7 @@ public class AnalogWatch extends Watch {
         }
 
         // Loads image and scale it
+        this.size = size;
         image = Toolkit.getDefaultToolkit().getImage(imageName);
         image = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
     }
@@ -38,6 +47,16 @@ public class AnalogWatch extends Watch {
         repaint();
     }
 
+    /**
+     * Draws a pointer of the watch with a line
+     *
+     * @param g2d           the Graphics2D object to be used to draw
+     * @param numberPointed the number the pointer is pointing at
+     * @param maxUnit       the maximum number of unit allowed for the pointer (usual clock go to 12 for hours, 60 for minutes and seconds)
+     * @param lengthPointer the length of the line drawn
+     * @param boldness      the thickness of the line drawn
+     * @param c             the color of the line drawn
+     */
     private void drawPointer(Graphics2D g2d, int numberPointed, int maxUnit, int lengthPointer, int boldness, Color c) {
         double angle = Math.toRadians((numberPointed % maxUnit) * ((double) 360 / maxUnit) - 90);
         int xCenter = getWidth() / 2;

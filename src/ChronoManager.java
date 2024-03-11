@@ -55,6 +55,11 @@ public class ChronoManager extends JFrame {
             new Button("cadran numérique", this::newWatchDigital, false),
     };
 
+    /**
+     * ChronoManager constructor
+     *
+     * @param nbChrono
+     */
     public ChronoManager(int nbChrono) {
         super("Panneau de contrôle");
         setLayout(new GridLayout(nbChrono + 1, 1));
@@ -108,7 +113,7 @@ public class ChronoManager extends JFrame {
                         public void windowClosing(WindowEvent e) {
                             for (Chrono chrono : ChronoManager.this.chronos) {
                                 int id = chrono.getId();
-                                for (Watch watch : watchManager.watches) {
+                                for (Watch watch : watchManager.getWatches()) {
                                     if (watch.getId() == id) {
                                         chrono.removeObserver(watch);
                                     }
@@ -159,7 +164,7 @@ public class ChronoManager extends JFrame {
             public void windowClosing(WindowEvent e) {
                 for (Chrono chrono : ChronoManager.this.chronos) {
                     int id = chrono.getId();
-                    for (Watch watch : watchManager.watches) {
+                    for (Watch watch : watchManager.getWatches()) {
                         if (watch.getId() == id) {
                             chrono.removeObserver(watch);
                         }
@@ -167,9 +172,5 @@ public class ChronoManager extends JFrame {
                 }
             }
         });
-    }
-
-    public ArrayList<Chrono> getChronos() {
-        return chronos;
     }
 }

@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class WatchManager extends JFrame {
     private static final int size = 200;
-    LinkedList<Watch> watches = new LinkedList<>();
+    private final LinkedList<Watch> watches = new LinkedList<>();
 
     private void setup() {
         // Sets size of the panels and add them to the frame
@@ -58,6 +58,15 @@ public class WatchManager extends JFrame {
                 chrono.toggle();
             }
         });
+    }
+
+    /**
+     * Getter for the list of watches
+     *
+     * @return the list of watches
+     */
+    public LinkedList<Watch> getWatches() {
+        return watches;
     }
 
     /**

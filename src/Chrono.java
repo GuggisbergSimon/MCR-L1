@@ -4,11 +4,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class Chrono extends Subject {
-    int id;
-    Timer timer;
-    boolean isRunning;
-    int timeElapsed;
-    ArrayList<Observer> observers;
+    private int id;
+    private Timer timer;
+    private boolean isRunning;
+    private int timeElapsed;
+    private ArrayList<Observer> observers;
 
     public Chrono(int id) {
         this.id = id;
