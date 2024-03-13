@@ -108,19 +108,7 @@ public class ChronoManager extends JFrame {
                 public void actionPerformed(ActionEvent e) {
                     final WatchManager watchManager = new WatchManager(WatchType.values()[index], chronos);
 
-                    watchManager.addWindowListener(new ClosingWindowListener() {
-                        @Override
-                        public void windowClosing(WindowEvent e) {
-                            for (Chrono chrono : ChronoManager.this.chronos) {
-                                int id = chrono.getId();
-                                for (Watch watch : watchManager.getWatches()) {
-                                    if (watch.getId() == id) {
-                                        chrono.removeObserver(watch);
-                                    }
-                                }
-                            }
-                        }
-                    });
+                    watchManager.addWindowListener(new WatchManagerClosingListener(watchManager));
                 }
             });
             panel.add(button);
@@ -141,7 +129,7 @@ public class ChronoManager extends JFrame {
     }
 
     private void reset(int id) {
-        chronos.get(id).start();
+        chronos.get(id).reset();
     }
 
     private void newWatchRoman(int id) {
@@ -159,18 +147,26 @@ public class ChronoManager extends JFrame {
     private void newWatch(int id, WatchType type) {
         final WatchManager watchManager = new WatchManager(type, chronos.get(id));
 
-        watchManager.addWindowListener(new ClosingWindowListener() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                for (Chrono chrono : ChronoManager.this.chronos) {
-                    int id = chrono.getId();
-                    for (Watch watch : watchManager.getWatches()) {
-                        if (watch.getId() == id) {
-                            chrono.removeObserver(watch);
-                        }
+        watchManager.addWindowListener(new WatchManagerClosingListener(watchManager));
+    }
+
+    class WatchManagerClosingListener extends ClosingWindowListener {
+        private final WatchManager watchManager;
+
+        public WatchManagerClosingListener(WatchManager watchManager) {
+            this.watchManager = watchManager;
+        }
+
+        @Override
+        public void windowClosing(WindowEvent e) {
+            for (Chrono chrono : ChronoManager.this.chronos) {
+                int id = chrono.getId();
+                for (Watch watch : watchManager.getWatches()) {
+                    if (watch.getId() == id) {
+                        chrono.removeObserver(watch);
                     }
                 }
             }
-        });
+        }
     }
 }

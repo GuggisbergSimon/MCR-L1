@@ -42,8 +42,7 @@ public class WatchManager extends JFrame {
         int timeSeconds = chrono.getTimeElapsed();
         Watch watch;
         switch (type) {
-            case Roman, Arabian ->
-                    watch = new AnalogWatch(id, timeSeconds, type, size);
+            case Roman, Arabian -> watch = new AnalogWatch(id, timeSeconds, type, size);
             // Digital
             default -> watch = new DigitalWatch(id, timeSeconds);
         }
