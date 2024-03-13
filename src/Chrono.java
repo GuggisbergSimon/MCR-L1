@@ -62,8 +62,6 @@ public class Chrono extends Subject {
     }
 
     public void reset() {
-        timer.stop();
-        isRunning = false;
         timeElapsed = 0;
         notifyObserver();
     }
